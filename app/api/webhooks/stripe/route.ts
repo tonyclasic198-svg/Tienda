@@ -2,6 +2,37 @@ import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { supabaseAdmin } from '@/lib/supabase';
 import Stripe from 'stripe';
+async function sendOrderNotification(orderData: {
+  customerEmail: string;
+  totalInCents: number;
+  items: { productId: string; quantity: number; priceInCents: number }[];
+}) {
+  try {
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Mi Tienda <onboarding@resend.dev>',
+        to: 'tonyclasic198@gmail.com',
+        subject: 'Nuevo pedido recibido',
+        html: `
+          <h2>¡Nuevo pedido!</h2>
+          <p><strong>Cliente:</strong> ${orderData.customerEmail}</p>
+          <p><strong>Total:</strong> $${(orderData.totalInCents / 100).toFixed(2)} MXN</p>
+          <h3>Productos:</h3>
+          <ul>
+            ${orderData.items.map(item => `<li>Producto: ${item.productId} — Cantidad: ${item.quantity} — Precio: $${(item.priceInCents / 100).toFixed(2)}</li>`).join('')}
+          </ul>
+        `,
+      }),
+    });
+  } catch (err) {
+    console.error('Error enviando notificación de pedido:', err);
+  }
+}
 
 export async function POST(req: NextRequest) {
   const body = await req.text();
@@ -92,6 +123,11 @@ export async function POST(req: NextRequest) {
           }
         }
 
+              await sendOrderNotification({
+        customerEmail: session.customer_details?.email ?? 'Sin correo',
+        totalInCents: session.amount_total ?? 0,
+        items: purchasedItems,
+      });
         console.log('Pago confirmado:', session.id, purchasedItems.length, 'items');
         break;
       }
