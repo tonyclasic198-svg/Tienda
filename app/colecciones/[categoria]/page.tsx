@@ -3,6 +3,10 @@ import { CATEGORY_LABELS, ProductCategory } from '@/types/product';
 import { notFound } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 
+// Vuelve a leer el catálogo de Supabase cada 60 segundos: los productos
+// nuevos u ocultos se reflejan sin tener que volver a desplegar.
+export const revalidate = 60;
+
 const VALID_CATEGORIES = Object.keys(CATEGORY_LABELS) as ProductCategory[];
 
 export function generateStaticParams() {

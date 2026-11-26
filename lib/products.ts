@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase, supabaseAdmin } from './supabase';
 import { Product, ProductCategory } from '@/types/product';
 
 // Supabase devuelve columnas en snake_case; el tipo Product usa camelCase.
@@ -13,6 +13,19 @@ function mapRowToProduct(row: any): Product {
     stock: row.stock,
     category: row.category,
   };
+}
+
+// Datos del proveedor: solo se usan en el servidor (nunca se muestran al cliente).
+export async function getSupplierInfo(productIds: string[]) {
+  const { data, error } = await supabaseAdmin
+    .from('products')
+    .select('id, name, supplier, supplier_sku, supplier_url')
+    .in('id', productIds);
+  if (error) {
+    console.error('Error leyendo datos de proveedor:', error);
+    return [];
+  }
+  return data ?? [];
 }
 
 export async function getAllProducts(): Promise<Product[]> {

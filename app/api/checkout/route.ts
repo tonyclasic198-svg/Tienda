@@ -68,6 +68,10 @@ export async function POST(req: NextRequest) {
       mode: 'payment',
       payment_method_types: ['card'],
       line_items: lineItems,
+      // Sin dirección no se puede enviar el producto: Stripe la pide al pagar.
+      shipping_address_collection: { allowed_countries: ['MX'] },
+      phone_number_collection: { enabled: true },
+      locale: 'es-419',
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
       // Stripe limita cada valor de metadata a 500 caracteres; para un carrito
