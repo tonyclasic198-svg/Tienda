@@ -133,6 +133,7 @@ export async function POST(req: NextRequest) {
               supplier: s?.supplier,
               supplierSku: s?.supplier_sku,
               supplierUrl: s?.supplier_url,
+              personalized: s?.personalized ?? false,
             };
           }),
         };

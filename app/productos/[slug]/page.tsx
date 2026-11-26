@@ -52,10 +52,24 @@ export default async function ProductoPage({
             <AddToCartButton product={product} />
           )}
         </div>
+        {product.personalized && (
+          <p className="mt-6 rounded-lg bg-amber-50 p-4 text-sm text-amber-900">
+            Producto personalizado: después de pagar, envíanos la foto por{' '}
+            <a href="https://wa.me/524921343230" target="_blank" rel="noopener noreferrer" className="underline">
+              WhatsApp (492 134 3230)
+            </a>{' '}
+            con el correo que usaste en tu compra. Te mandamos una vista previa antes de la entrega final.
+          </p>
+        )}
         {product.externalUrl ? (
           <p className="mt-6 text-sm text-gray-500">
             Producto digital: el pago y la entrega se hacen de forma segura en
             Hotmart. Recibes el acceso en tu correo al terminar la compra.
+          </p>
+        ) : product.personalized ? (
+          <p className="mt-6 text-sm text-gray-500">
+            Hecho a mano para ti. Entrega del archivo digital en 3 a 5 días hábiles
+            después de recibir tu foto.
           </p>
         ) : (
           <p className="mt-6 text-sm text-gray-500">

@@ -45,6 +45,7 @@ export interface OrderEmailItem {
   supplier?: string | null;
   supplierSku?: string | null;
   supplierUrl?: string | null;
+  personalized?: boolean;
 }
 
 export interface OrderEmailData {
@@ -65,7 +66,8 @@ export async function sendAdminOrderEmail(o: OrderEmailData) {
       (i) => `<li><strong>${escapeHtml(i.name)}</strong> × ${i.quantity} — ${money(i.priceInCents)}<br/>
       Proveedor: ${escapeHtml(i.supplier) || 'sin asignar'}
       ${i.supplierSku ? ` · SKU: ${escapeHtml(i.supplierSku)}` : ''}
-      ${i.supplierUrl ? ` · <a href="${escapeHtml(i.supplierUrl)}">ver en proveedor</a>` : ''}</li>`
+      ${i.supplierUrl ? ` · <a href="${escapeHtml(i.supplierUrl)}">ver en proveedor</a>` : ''}
+      ${i.personalized ? '<br/><strong>PERSONALIZADO: espera la foto del cliente por WhatsApp.</strong>' : ''}</li>`
     )
     .join('');
 
@@ -96,6 +98,7 @@ export async function sendCustomerOrderEmail(o: OrderEmailData) {
     <ul>${rows}</ul>
     <p><strong>Total:</strong> ${money(o.totalInCents)}</p>
     <p><strong>Se enviará a:</strong><br/>${escapeHtml(o.shippingAddressText).replace(/\n/g, '<br/>')}</p>
+    ${o.items.some((i) => i.personalized) ? `<p><strong>Tu pedido incluye un producto personalizado.</strong> Envíanos la foto por WhatsApp al 492 134 3230 (<a href="https://wa.me/524921343230">abrir WhatsApp</a>) con este correo. Te mandaremos una vista previa antes de la entrega final.</p>` : ''}
     <p>El tiempo estimado de entrega es de 7 a 20 días hábiles. Te avisaremos cuando tengamos tu número de rastreo.</p>
     <p>Si tienes alguna duda, responde a este correo.</p>`;
 

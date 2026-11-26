@@ -18,4 +18,6 @@ export interface Product {
   category: ProductCategory;
   // Si existe, el producto se compra en otra plataforma (p. ej. Hotmart)
   externalUrl: string | null;
+  // El cliente envía una foto después de pagar (retratos, piezas a la medida)
+  personalized: boolean;
 }
