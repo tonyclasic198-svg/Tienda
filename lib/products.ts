@@ -13,6 +13,7 @@ function mapRowToProduct(row: any): Product {
     stock: row.stock,
     category: row.category,
     externalUrl: row.external_url ?? null,
+    personalized: row.personalized ?? false,
   };
 }
 
@@ -20,7 +21,7 @@ function mapRowToProduct(row: any): Product {
 export async function getSupplierInfo(productIds: string[]) {
   const { data, error } = await supabaseAdmin
     .from('products')
-    .select('id, name, supplier, supplier_sku, supplier_url')
+    .select('id, name, supplier, supplier_sku, supplier_url, personalized')
     .in('id', productIds);
   if (error) {
     console.error('Error leyendo datos de proveedor:', error);
