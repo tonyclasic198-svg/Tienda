@@ -4,6 +4,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'jolzbrcbrqnazorrajnz.supabase.co' },
       { protocol: 'https', hostname: 'placehold.co' },
+      { protocol: 'https', hostname: 'tercercanoneditores.com.mx' },
     ],
   },
 };
