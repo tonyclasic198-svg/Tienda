@@ -24,6 +24,14 @@ export default function RootLayout({
           </nav>
         </header>
         {children}
+        <footer className="mt-16 border-t p-6 text-center text-xs text-gray-500">
+          <nav className="flex justify-center gap-4">
+            <Link href="/envios-y-devoluciones">Envíos y devoluciones</Link>
+            <Link href="/aviso-de-privacidad">Aviso de privacidad</Link>
+            <a href="mailto:tonyclasic198@gmail.com">Contacto</a>
+          </nav>
+          <p className="mt-2">Pagos seguros procesados por Stripe.</p>
+        </footer>
       </body>
     </html>
   );
