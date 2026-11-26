@@ -20,6 +20,7 @@ export default function RootLayout({
             <Link href="/colecciones/mascotas">Mascotas</Link>
             <Link href="/colecciones/skincare">Skincare</Link>
             <Link href="/colecciones/arte-impreso">Arte Impreso</Link>
+            <Link href="/colecciones/digitales">Digitales</Link>
             <Link href="/carrito">Carrito</Link>
           </nav>
         </header>

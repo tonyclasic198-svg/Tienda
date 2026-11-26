@@ -37,18 +37,34 @@ export default async function ProductoPage({
         </p>
         <p className="mt-4 text-gray-600">{product.description}</p>
         <div className="mt-6">
-          {agotado ? (
+          {product.externalUrl ? (
+            <a
+              href={product.externalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-lg bg-black px-6 py-3 text-white"
+            >
+              Comprar ahora
+            </a>
+          ) : agotado ? (
             <p className="font-medium text-red-600">Agotado por ahora</p>
           ) : (
             <AddToCartButton product={product} />
           )}
         </div>
-        <p className="mt-6 text-sm text-gray-500">
-          Envío a todo México. Tiempo estimado de entrega: 7 a 20 días hábiles.{' '}
-          <a href="/envios-y-devoluciones" className="underline">
-            Envíos y devoluciones
-          </a>
-        </p>
+        {product.externalUrl ? (
+          <p className="mt-6 text-sm text-gray-500">
+            Producto digital: el pago y la entrega se hacen de forma segura en
+            Hotmart. Recibes el acceso en tu correo al terminar la compra.
+          </p>
+        ) : (
+          <p className="mt-6 text-sm text-gray-500">
+            Envío a todo México. Tiempo estimado de entrega: 7 a 20 días hábiles.{' '}
+            <a href="/envios-y-devoluciones" className="underline">
+              Envíos y devoluciones
+            </a>
+          </p>
+        )}
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ function mapRowToProduct(row: any): Product {
     imageUrl: row.image_url,
     stock: row.stock,
     category: row.category,
+    externalUrl: row.external_url ?? null,
   };
 }
 
