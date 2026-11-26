@@ -19,6 +19,12 @@ const COLLECTIONS = [
     title: 'Arte Impreso',
     copy: 'Pósters y piezas impresas bajo demanda para quienes coleccionan lo que aman — música, arte, cultura.',
   },
+  {
+    slug: 'digitales',
+    emoji: '📘',
+    title: 'Productos Digitales',
+    copy: 'Libros, guías y cursos para aprender música, arte y más. Acceso inmediato después de tu compra.',
+  },
 ];
 
 export default function HomePage() {
@@ -29,12 +35,12 @@ export default function HomePage() {
           Cosas que se disfrutan, no solo se compran
         </h1>
         <p className="mt-2 text-gray-600">
-          Tres colecciones curadas para tu mascota, tu piel y tus paredes.
+          Colecciones curadas para tu mascota, tu piel, tus paredes y tu aprendizaje.
           Calidad que se nota, entrega que no te hace esperar.
         </p>
       </div>
 
-      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 p-8 sm:grid-cols-3">
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 p-8 sm:grid-cols-2 lg:grid-cols-4">
         {COLLECTIONS.map((c) => (
           <Link
             key={c.slug}

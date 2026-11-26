@@ -34,6 +34,13 @@ export async function POST(req: NextRequest) {
         );
       }
 
+      if (product.externalUrl) {
+        return NextResponse.json(
+          { error: `${product.name} se compra en su propia página` },
+          { status: 400 }
+        );
+      }
+
       if (item.quantity <= 0) {
         return NextResponse.json(
           { error: `Cantidad inválida para ${product.name}` },

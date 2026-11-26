@@ -1,9 +1,10 @@
-export type ProductCategory = 'mascotas' | 'skincare' | 'arte-impreso';
+export type ProductCategory = 'mascotas' | 'skincare' | 'arte-impreso' | 'digitales';
 
 export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   mascotas: 'Mascotas',
   skincare: 'Skincare',
   'arte-impreso': 'Arte Impreso',
+  digitales: 'Productos Digitales',
 };
 
 export interface Product {
@@ -15,4 +16,6 @@ export interface Product {
   imageUrl: string;
   stock: number;
   category: ProductCategory;
+  // Si existe, el producto se compra en otra plataforma (p. ej. Hotmart)
+  externalUrl: string | null;
 }
